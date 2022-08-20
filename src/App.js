@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { createContext, useState } from "react";
+import RegistrationForm from "./components/RegistrationForm";
+import UserList from "./components/UserList";
+
+const initialValues = {
+  personal: {
+    name: "",
+    DobOrAge: "",
+    sex: "",
+    mobileNo: "",
+    govtIssuedId: {
+      idType: "",
+      govtId: "",
+    },
+  },
+  contact: {
+    guardian: {
+      label: "",
+      guardianName: "",
+    },
+    email: "",
+    emergencyContact: "",
+  },
+  address: {
+    add: "",
+    state: "",
+    city: "",
+    country: "india",
+    pincode: "",
+  },
+  other: {
+    occupation: "",
+    religion: "",
+    maritalStatus: "",
+    bloodGroup: "",
+  },
+};
+
+export const UserListContext = createContext();
 
 function App() {
+  const [userList, setUserList] = useState([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserListContext.Provider value={{ userList, setUserList }}>
+      <RegistrationForm initialValues={initialValues} />
+      <UserList />
+    </UserListContext.Provider>
   );
 }
 
